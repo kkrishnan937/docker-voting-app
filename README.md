@@ -141,11 +141,18 @@ docker-compose up -d
 
 ## 📸 Screenshots
 
-*(Add your screenshots here)*
+- Voting app UI
+- ## 📸 Screenshots
 
 - Voting app UI  
+  ![Vote UI](assets/vote-ui.png)
+
 - Result app UI  
-- `docker ps` showing all running containers
+  ![Result UI](assets/result-ui.png)
+
+- Docker ps showing running containers  
+  ![Docker Containers](assets/docker-ps.png)
+
 
 
 
