@@ -147,27 +147,6 @@ docker-compose up -d
 - Result app UI  
 - `docker ps` showing all running containers
 
----
 
-## 📝 Notes for Resume / Interview
 
-- **Dockerfile:** Multi-stage build (dev vs production), production server uses **Gunicorn**.  
-- **Docker networking:** Services communicate over Compose network automatically.  
-- **Docker Compose orchestration:** Manages multiple services with one command.  
-- **AWS Integration:** Images pushed to **ECR**, deployed on **EC2**, ports exposed in Security Group.  
-- **DevOps Skills Demonstrated:** Containerization, CI/CD readiness, cloud deployment, multi-container orchestration.
-
----
-
-## 🔥 Optional Next Steps
-
-- Add **Jenkins pipeline**: GitHub → Jenkins → Build → Push → Deploy on EC2  
-- Add **monitoring/logging** (Prometheus/Grafana)  
-- Add **unit tests** for Vote/Worker/Result apps  
-
----
-
-## ⚡ Quick Resume-Friendly Project Description
-
-> Built a **multi-container voting app** using Docker, Docker Compose, and AWS. Deployed production-ready services (Flask + Gunicorn, Node.js) on EC2, with images stored in ECR. Demonstrated container orchestration, cloud deployment, and real-world DevOps workflow.
 
