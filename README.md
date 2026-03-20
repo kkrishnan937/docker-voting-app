@@ -1,6 +1,6 @@
 # Docker Voting App
 
-## 🏗 Project Overview
+## Project Overview
 This is a **multi-container voting application** demonstrating a **production-ready Docker + AWS deployment**.  
 
 The app includes:
