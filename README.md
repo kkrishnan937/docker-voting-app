@@ -33,25 +33,25 @@ Here is the functional flow and components of the stack:
 
 ```mermaid
 graph TD
-    user((End User)) -->|SUBMITS VOTE| voting[Voting Frontend<br/>(Python/Flask)]
-    user -->|VIEWS POLL| result[Results Frontend<br/>(Node.js)]
+    user((End User)) -->|SUBMITS VOTE| voting["Voting Frontend<br/>(Python/Flask)"]
+    user -->|VIEWS POLL| result["Results Frontend<br/>(Node.js)"]
 
     subgraph "High-Availability Ingestion Layer"
-        voting -->|ASYNCHRONOUS PUSH| redis[(Redis<br/>(Message Queue))]
+        voting -->|ASYNCHRONOUS PUSH| redis[("Redis<br/>(Message Queue)")]
     end
 
     subgraph "Processing & Compute Layer"
-        worker[Worker Service<br/>(.NET/Java)] -.->|POLLS MESSAGES| redis
+        worker["Worker Service<br/>(.NET/Java)"] -.->|POLLS MESSAGES| redis
         worker -->|WRITES DATA| db
     end
 
-    subgraph "Persistent Storage Layer"
-        db[(Postgres<br/>(Relational DB))]
+    subgraph "Data Persistence"
+        db[("Postgres<br/>(Relational DB)")]
     end
 
     result -->|READ-ONLY QUERY| db
 
-    %% Production-grade labeling and styling
+    %% Styling
     classDef frontend fill:#bbf,stroke:#333,stroke-width:2px,color:#000;
     classDef processing fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
     classDef storage fill:#fff,stroke:#333,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
@@ -60,6 +60,7 @@ graph TD
     class worker processing;
     class redis,db storage;
 
+```
 **Flow Explanation:**
 
 1. User submits vote → handled by **Vote App**.  
