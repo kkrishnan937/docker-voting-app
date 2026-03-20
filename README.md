@@ -141,9 +141,6 @@ docker-compose up -d
 
 ## 📸 Screenshots
 
-- Voting app UI
-- ## 📸 Screenshots
-
 - Voting app UI  
   ![Vote UI](assets/vote-ui.png)
 
