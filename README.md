@@ -24,6 +24,32 @@ Users can submit votes and view live results. This project showcases **Docker, D
        |
        v
 [Result App]
+
+graph TD
+    user((User)) -->|Votes| vote[Vote Service <br/><i>Python/Flask</i>]
+    user -->|Views Results| result[Result Service <br/><i>Node.js</i>]
+
+    subgraph "Ingestion & Queue"
+        vote -->|Pushes Data| redis[(Redis <br/><i>In-memory Queue</i>)]
+    end
+
+    subgraph "Processing Layer"
+        worker[Worker Service <br/><i>.NET / Java</i>] -->|Pulls from| redis
+        worker -->|Writes to| db
+    end
+
+    subgraph "Data Persistence"
+        db[(Postgres <br/><i>Database</i>)]
+    end
+
+    result -->|Reads from| db
+
+    %% Styling
+    style vote fill:#326ce5,stroke:#fff,color:#fff
+    style result fill:#326ce5,stroke:#fff,color:#fff
+    style worker fill:#f96,stroke:#fff,color:#fff
+    style redis fill:#d82c20,stroke:#fff,color:#fff
+    style db fill:#336791,stroke:#fff,color:#fff
 ```
 
 **Flow Explanation:**
