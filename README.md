@@ -24,33 +24,41 @@ Users can submit votes and view live results. This project showcases **Docker, D
        |
        v
 [Result App]
-
-graph TD
-    user((User)) -->|Votes| vote[Vote Service <br/><i>Python/Flask</i>]
-    user -->|Views Results| result[Result Service <br/><i>Node.js</i>]
-
-    subgraph "Ingestion & Queue"
-        vote -->|Pushes Data| redis[(Redis <br/><i>In-memory Queue</i>)]
-    end
-
-    subgraph "Processing Layer"
-        worker[Worker Service <br/><i>.NET / Java</i>] -->|Pulls from| redis
-        worker -->|Writes to| db
-    end
-
-    subgraph "Data Persistence"
-        db[(Postgres <br/><i>Database</i>)]
-    end
-
-    result -->|Reads from| db
-
-    %% Styling
-    style vote fill:#326ce5,stroke:#fff,color:#fff
-    style result fill:#326ce5,stroke:#fff,color:#fff
-    style worker fill:#f96,stroke:#fff,color:#fff
-    style redis fill:#d82c20,stroke:#fff,color:#fff
-    style db fill:#336791,stroke:#fff,color:#fff
 ```
+## System Architecture Overview
+
+This project implements a classic highly-available, decoupled microservices architecture. It is designed to demonstrate best practices in application containerization, service discovery, data persistence, and horizontal scaling.
+
+Here is the functional flow and components of the stack:
+
+```mermaid
+graph TD
+    user((End User)) -->|SUBMITS VOTE| voting[Voting Frontend<br/>(Python/Flask)]
+    user -->|VIEWS POLL| result[Results Frontend<br/>(Node.js)]
+
+    subgraph "High-Availability Ingestion Layer"
+        voting -->|ASYNCHRONOUS PUSH| redis[(Redis<br/>(Message Queue))]
+    end
+
+    subgraph "Processing & Compute Layer"
+        worker[Worker Service<br/>(.NET/Java)] -.->|POLLS MESSAGES| redis
+        worker -->|WRITES DATA| db
+    end
+
+    subgraph "Persistent Storage Layer"
+        db[(Postgres<br/>(Relational DB))]
+    end
+
+    result -->|READ-ONLY QUERY| db
+
+    %% Production-grade labeling and styling
+    classDef frontend fill:#bbf,stroke:#333,stroke-width:2px,color:#000;
+    classDef processing fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
+    classDef storage fill:#fff,stroke:#333,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+
+    class voting,result frontend;
+    class worker processing;
+    class redis,db storage;
 
 **Flow Explanation:**
 
